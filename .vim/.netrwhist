@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =8
+let g:netrw_dirhist_8='/home'
+let g:netrw_dirhist_7='/home/evan'
+let g:netrw_dirhist_6='/home/evan/Projects'
+let g:netrw_dirhist_5='/home/evan/Projects/maze'
+let g:netrw_dirhist_4='/home/evan/snap/code'
+let g:netrw_dirhist_3='/home/evan/snap'
+let g:netrw_dirhist_2='/home/evan'
+let g:netrw_dirhist_1='/home/evan/Projects'
+let g:netrw_dirhist_0='/home/evan/Projects/maze'
+let g:netrw_dirhist_9='/home/evan'

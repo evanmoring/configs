@@ -118,3 +118,12 @@ fi
 
 [ -f ~/.bash_git ] && source ~/.bash_git
                                                   
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+bind 'set show-all-if-ambiguous on'
+bind 'set completion-ignore-case on'
+
+
+source /home/evan/.config/broot/launcher/bash/br
+
