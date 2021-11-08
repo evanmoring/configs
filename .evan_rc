@@ -1,0 +1,36 @@
+#! /bin/bash
+source /home/evan/.config/broot/launcher/bash/br
+
+set -o vi
+
+alias oops='sudo $(fc -ln -1)'
+
+alias hist='history | grep'
+
+alias dirs='dirs -v'
+
+alias pd='popd'
+
+export EDITOR=vim
+
+alias ff="firefox &"
+
+export ws="/home/evan/Projects/"
+
+se(){
+# search for $1 in $2, unless no $2 then search $ws
+    dir=$ws;
+    if  (( $# > 1 ));
+    then 
+        dir=$2
+    fi
+#    grep -rnw --color=always $dir -e $1 | less -R ;
+
+    ack -r --color $1 $dir --color --heading | less -R ;
+}
+
+git_start(){
+    git status --porcelain | cut -c 4- | while read line ; do echo $line; echo dog ; done
+}
+
+alias less="less -R"
