@@ -12,8 +12,10 @@ set autoindent
 
 filetype plugin on
 let g:pydiction_location = '/home/evan/.vim/Pydiction/complete-dict' 
-let g:solarized_termcolors=256
+set background=dark
+let g:solarized_termcolors = 255 
 colorscheme solarized 
+
 
 command F FZF
 

@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+
+launch_evan(){
+    gnome-terminal -- bash -ic "robot_login_evan $SSH_ROBOT"
+    gnome-terminal -- bash -ic "local_launch_evan $1"
+    exit
+}
+
+robot_login_evan(){   
+    ssh -t peanut@"$1" "bash -ic 'docker-run -r -- robot_launch'"
+}
+
+
+robot_login_evan1(){   
+
+ssh -tt  peanut@"$SSH_ROBOT" <<-ENDSSH
+kitty(){
+echo cat
+}
+kitty
+"bash -ic 'docker-run -r -- ls'"
+ENDSSH
+}
+
+
+
+robot_launch(){
+    tmux new -d
+    tmux set -g mouse on
+    tmux rename-session robot
+    tmux rename-window roscore
+    tmux new-window -n bringup
+    tmux select-window bringup
+    tmux send-keys -t robot:roscore.0 "roscore" C-m
+    tmux split-window -h
+    tmux send-keys -t bringup.0 "pealaunch -S -R -H -c robot2 -p restore.map_name=nikko_633 --wait" C-m
+    tmux attach -t robot
+}
+
+local_launch_evan(){
+    gnome-terminal --tab -- bash -ic "docker-run -r -- local_docker_tmux_evan" 
+    exit
+}
+
+local_docker_tmux_evan(){
+    tmux new -d
+    tmux set -g set-titles on
+    tmux set -g set-titles-string "#W"
+    tmux set -g mouse on
+    tmux rename-session docker
+    tmux rename-window local_rqt
+    tmux split-window -h
+    tmux select-pane local_rqt.0
+    tmux send-keys -t docker:local_rqt.0 "rqt --standalone rqt_syspan" C-m
+    tmux select-pane local_rqt.1
+    tmux split-window -v
+    tmux select-pane local_rqt.2
+    tmux send-keys -t docker:local_rqt.2 "roslaunch peanut_bringup rviz.launch --wait" C-m
+    tmux new-window -n local_teleop
+    tmux send-keys -t docker:local_teleop.0 "roslaunch peanut_mobile_base_oil teleop.launch --wait" C-m
+    tmux attach -t docker
+}

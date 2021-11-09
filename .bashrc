@@ -43,7 +43,7 @@ esac
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
-#force_color_prompt=yes
+force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
@@ -71,6 +71,19 @@ xterm*|rxvt*)
 *)
     ;;
 esac
+
+
+# added by Evan to let you know if you are in a docker container
+if [ -f /.dockerenv ]; then
+	PS1="$PS1\033[0;31m<docker>\033[0m"
+fi
+
+# added by Evan to show the current git branch
+parse_git_branch() {
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+};
+
+PS1="$PS1\033[0;33m\$(parse_git_branch)\033[0m\n"
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -115,9 +128,13 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+#source /opt/ros/noetic/setup.bash
+source ~/peanut_ws/devel/setup.bash
+source ~/.bashrc_evan
+[ ! -x ~/peanut_ws/setup.bash ] || WORKSPACE=~/peanut_ws source ~/peanut_ws/setup.bash
+export TERM=xterm
 
-[ -f ~/.bash_git ] && source ~/.bash_git
-                                                  
+export XAUTHORITY=$HOME/.Xauthority
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 

@@ -1,5 +1,5 @@
 #! /bin/bash
-source /home/evan/.config/broot/launcher/bash/br
+source /home/peanut/.config/broot/launcher/bash/br
 
 set -o vi
 
