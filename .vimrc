@@ -6,8 +6,46 @@ set number
 set ttymouse=xterm2
 set mouse=n
 set autoindent
-" Turn on status line even with only one window open
+
+augroup UPDATE_GITBRANCH
+  " clear old commands
+  autocmd!
+
+  " update git branch
+  autocmd BufWritePre * :call UpdateGitBranch()
+  autocmd BufReadPost * :call UpdateGitBranch()
+  autocmd BufEnter * :call UpdateGitBranch()
+augroup END
+let g:gitparsedbranchname = ' '
+
+function! UpdateGitBranch()
+  let l:string = system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+  let g:gitparsedbranchname = strlen(l:string) > 0?'['.l:string.']':''
+endfunction
+
 set laststatus=2
+set statusline=%F\ 
+set statusline+="\uE0B2"
+set statusline+=%#LineNr#
+set statusline+=\ %{getcwd()}
+set statusline+=\ %{g:gitparsedbranchname}
+
+"set statusline=
+"set statusline+=%#PmenuSel#
+"set statusline+=%{StatuslineGit()}
+"set statusline+=%#LineNr#
+"set statusline+=\ %f
+"set statusline+=%m\
+"set statusline+=%=
+"set statusline+=%#CursorColumn#
+"set statusline+=\ %y
+"set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+"set statusline+=\[%{&fileformat}\]
+"set statusline+=\ %p%%
+"set statusline+=\ %l:%c
+"set statusline+=\ 
+
+
 set notermguicolors
 
 "\e[H":beginning-of-line
