@@ -4,7 +4,7 @@ set tabstop=4
 set expandtab
 set number
 set ttymouse=xterm2
-set mouse=n
+set mouse=a
 set autoindent
 
 "\e[H":beginning-of-line
