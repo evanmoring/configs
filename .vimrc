@@ -1,4 +1,4 @@
-set term=xterm-256color
+"
 set shiftwidth=4
 set tabstop=4
 set expandtab
@@ -30,22 +30,6 @@ set statusline+=%#LineNr#
 set statusline+=\ %{getcwd()}
 set statusline+=\ %{g:gitparsedbranchname}
 
-"set statusline=
-"set statusline+=%#PmenuSel#
-"set statusline+=%{StatuslineGit()}
-"set statusline+=%#LineNr#
-"set statusline+=\ %f
-"set statusline+=%m\
-"set statusline+=%=
-"set statusline+=%#CursorColumn#
-"set statusline+=\ %y
-"set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
-"set statusline+=\[%{&fileformat}\]
-"set statusline+=\ %p%%
-"set statusline+=\ %l:%c
-"set statusline+=\ 
-
-
 set notermguicolors
 
 "\e[H":beginning-of-line
@@ -64,9 +48,9 @@ set showcmd
 
 autocmd BufWritePost .vimrc source %
 
-"nnoremap <C-c> :w <Enter>:! clear ;g++ -o  %:r.out % -std=c++11; ./%:r.out<Enter>
-vnoremap <C-c> :norm I
-let mapleader = "/"
+nnoremap <C-c> :w <Enter>:! clear ;g++ -o  %:r.out % -std=c++11; ./%:r.out<Enter>
+let mapleader = ","
+vnoremap <leader>c :norm I
 " leader example
 "nnoremap <leader>c :echo 'cat'
 
@@ -75,15 +59,13 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-set shellcmdflag=-ic
+"set shellcmdflag=-ic
 
 set rtp+=~/.fzf
 
 set hlsearch
 "highlights search terms. :noh to clear
-
 set showmatch
-
 set ignorecase
 set smartcase
 "case insensitive searching

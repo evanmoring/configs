@@ -1,6 +1,8 @@
 #! /bin/bash
 source /home/evan/.config/broot/launcher/bash/br
 
+alias df='/opt/linux-dwarf-pack/linux-dwarf-pack.sh'
+
 set -o vi
 
 alias oops='sudo $(fc -ln -1)'
