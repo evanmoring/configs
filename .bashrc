@@ -2,6 +2,33 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+
+
+# case ${TERM} in
+
+#     screen*)
+#         echo "test"
+#         # user command to change default pane title on demand
+#         function title { TMUX_PANE_TITLE="$*"; }
+
+#         # function that performs the title update (invoked as PROMPT_COMMAND)
+#         function update_title { printf "\033]2;%s\033\\" "${1:-$TMUX_PANE_TITLE}"; echo $TMUX_PANE_TITLE;}
+
+#         # default pane title is the name of the current process (i.e. 'bash')
+#         TMUX_PANE_TITLE=$(ps -o comm $$ | tail -1)
+
+#         # Reset title to the default before displaying the command prompt
+#         PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }'update_title'   
+
+#         # Update title before executing a command: set it to the command
+#         trap 'update_title "$BASH_COMMAND"' DEBUG
+
+#         ;;
+
+
+# esac
+
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -27,7 +54,10 @@ shopt -s checkwinsize
 # match all files and zero or more directories and subdirectories.
 #shopt -s globstar
 
+source ~/peanut_ws/devel/setup.bash
+
 # make less more friendly for non-text input files, see lesspipe(1)
+
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # set variable identifying the chroot you work in (used in the prompt below)
@@ -57,9 +87,9 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;36m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;36m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] '
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w '
 fi
 unset color_prompt force_color_prompt
 
@@ -73,18 +103,20 @@ xterm*|rxvt*)
 esac
 
 
-# added by Evan to let you know if you are in a docker container
+# let you know if you are in a docker container
 if [ -f /.dockerenv ]; then
-	PS1="$PS1\033[0;31m<docker>\033[0m"
+	PS1="$PS1 \033[0;31m<docker>\033[0m"
 fi
 
-# added by Evan to show the current git branch
+# show the current git branch
 parse_git_branch() {
      git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 };
 
-PS1="$PS1\033[0;33m\$(parse_git_branch)\033[0m\n"
+PS1="$PS1\033[0;33m\$(parse_git_branch)\033[0m"
 
+# adds SSH robot to PS1
+PS1="$PS1 \033[01;32m\$SSH_ROBOT\033[0m\n\$ "
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -129,7 +161,6 @@ if ! shopt -oq posix; then
   fi
 fi
 #source /opt/ros/noetic/setup.bash
-source ~/peanut_ws/devel/setup.bash
 source ~/.bashrc_evan
 [ ! -x ~/peanut_ws/setup.bash ] || WORKSPACE=~/peanut_ws source ~/peanut_ws/setup.bash
 export TERM=xterm
@@ -142,4 +173,14 @@ bind 'set show-all-if-ambiguous on'
 bind 'set completion-ignore-case on'
 
 source ~/.evan_rc
+export PEANUT_CONFIG='robot2'
+[ ! -x ~/peanut_docker/setup.bash ] || WORKSPACE=~/peanut_docker source ~/peanut_docker/setup.bash
+
+source ~/peanut_ws/bin/operator_tools/operator_tools.sh
+
+export REMOTE_WS=~/sshfs/home/peanut/peanut_ws
+
+alias mount_nuc="sudo sshfs -o allow_other,default_permissions,IdentityFile=~/.ssh/nuc peanut@${SSH_ROBOT}:/ ~/sshfs"
+
+alias file-explorer="nautilus --browser"
 

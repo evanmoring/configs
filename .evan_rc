@@ -1,7 +1,13 @@
 #! /bin/bash
 source /home/peanut/.config/broot/launcher/bash/br
 
+source /usr/share/bash-completion/completions/git
+
 set -o vi
+
+alias set_upstream='git push --set-upstream origin'
+
+alias gitg='git branch | grep'
 
 alias oops='sudo $(fc -ln -1)'
 

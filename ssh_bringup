@@ -1,5 +1,24 @@
 #!/usr/bin/env bash
 
+local_evan(){
+    set_robot local
+    bash -ic 'docker-run -r -- local_evan_docker'
+}
+
+local_evan_docker(){
+    tmux new -d
+    tmux set -g mouse on
+    tmux rename-session robot
+    tmux rename-window roscore
+    tmux new-window -n bringup
+    tmux select-window bringup
+    tmux send-keys -t robot:roscore.0 "roscore" C-m
+    tmux split-window -h
+    tmux send-keys -t bringup.0 "pealaunch -s -H -p restore.map_name=nikko_633 --wait" C-m
+    tmux split-window -h
+    tmux attach -t robot
+}
+
 launch_evan(){
     gnome-terminal -- bash -ic "robot_login_evan $SSH_ROBOT"
     gnome-terminal -- bash -ic "local_launch_evan $1"
@@ -11,16 +30,16 @@ robot_login_evan(){
 }
 
 
-robot_login_evan1(){   
-
-ssh -tt  peanut@"$SSH_ROBOT" <<-ENDSSH
-kitty(){
-echo cat
-}
-kitty
-"bash -ic 'docker-run -r -- ls'"
-ENDSSH
-}
+#robot_login_evan1(){   
+#
+#ssh -tt  peanut@"$SSH_ROBOT" <<-ENDSSH
+#kitty(){
+#echo cat
+#}
+#kitty
+#"bash -ic 'docker-run -r -- ls'"
+#ENDSSH
+#}
 
 
 
