@@ -1,7 +1,7 @@
 #! /bin/bash
 source /home/evan/.config/broot/launcher/bash/br
 
-alias df='/opt/linux-dwarf-pack/linux-dwarf-pack.sh'
+alias dwarf='/opt/linux-dwarf-pack/linux-dwarf-pack.sh'
 
 set -o vi
 
@@ -11,7 +11,7 @@ alias hist='history | grep'
 
 alias dirs='dirs -v'
 
-alias pd='popd'
+alias pd='pushd'
 
 export EDITOR=vim
 

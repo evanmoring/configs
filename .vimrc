@@ -1,4 +1,3 @@
-"
 set shiftwidth=4
 set tabstop=4
 set expandtab
@@ -6,6 +5,10 @@ set number
 set ttymouse=xterm2
 set mouse=n
 set autoindent
+set ignorecase          
+set smartcase           
+set showmatch           
+set showmode            
 
 augroup UPDATE_GITBRANCH
   " clear old commands
@@ -43,12 +46,15 @@ set background=dark
 colorscheme solarized 
 
 command F FZF
-
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
 set showcmd
 
 autocmd BufWritePost .vimrc source %
 
 nnoremap <C-c> :w <Enter>:! clear ;g++ -o  %:r.out % -std=c++11; ./%:r.out<Enter>
+
+nnoremap <C-c> :w <Enter>:! clear ;python3  test.py<Enter>
+
 let mapleader = ","
 vnoremap <leader>c :norm I
 " leader example
@@ -65,7 +71,6 @@ set rtp+=~/.fzf
 
 set hlsearch
 "highlights search terms. :noh to clear
-set showmatch
 set ignorecase
 set smartcase
 "case insensitive searching
