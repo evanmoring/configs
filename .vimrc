@@ -14,7 +14,7 @@ filetype plugin on
 let g:pydiction_location = '/home/evan/.vim/Pydiction/complete-dict' 
 set background=dark
 let g:solarized_termcolors = 255 
-colorscheme solarized 
+colorscheme murphy 
 
 
 command F FZF
