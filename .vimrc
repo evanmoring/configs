@@ -4,18 +4,59 @@ set tabstop=4
 set expandtab
 set number
 set ttymouse=xterm2
-set mouse=a
+set mouse=n
 set autoindent
+
+augroup UPDATE_GITBRANCH
+  " clear old commands
+  autocmd!
+
+  " update git branch
+  autocmd BufWritePre * :call UpdateGitBranch()
+  autocmd BufReadPost * :call UpdateGitBranch()
+  autocmd BufEnter * :call UpdateGitBranch()
+augroup END
+let g:gitparsedbranchname = ' '
+
+function! UpdateGitBranch()
+  let l:string = system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+  let g:gitparsedbranchname = strlen(l:string) > 0?'['.l:string.']':''
+endfunction
+
+set laststatus=2
+set statusline=%F\ 
+set statusline+="\uE0B2"
+set statusline+=%#LineNr#
+set statusline+=\ %{getcwd()}
+set statusline+=\ %{g:gitparsedbranchname}
+
+"set statusline=
+"set statusline+=%#PmenuSel#
+"set statusline+=%{StatuslineGit()}
+"set statusline+=%#LineNr#
+"set statusline+=\ %f
+"set statusline+=%m\
+"set statusline+=%=
+"set statusline+=%#CursorColumn#
+"set statusline+=\ %y
+"set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+"set statusline+=\[%{&fileformat}\]
+"set statusline+=\ %p%%
+"set statusline+=\ %l:%c
+"set statusline+=\ 
+
+
+set notermguicolors
 
 "\e[H":beginning-of-line
 "\e[F":end-of-line
 
 filetype plugin on
 let g:pydiction_location = '/home/evan/.vim/Pydiction/complete-dict' 
+let g:solarized_termcolors=255
 set background=dark
-let g:solarized_termcolors = 255 
-colorscheme solarized 
 
+colorscheme murphy 
 
 command F FZF
 
@@ -23,7 +64,11 @@ set showcmd
 
 autocmd BufWritePost .vimrc source %
 
-nnoremap <C-c> :w <Enter>:! clear ;g++ -o  %:r.out % -std=c++11; ./%:r.out<Enter>
+"nnoremap <C-c> :w <Enter>:! clear ;g++ -o  %:r.out % -std=c++11; ./%:r.out<Enter>
+vnoremap <C-c> :norm I
+let mapleader = "/"
+" leader example
+"nnoremap <leader>c :echo 'cat'
 
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -50,23 +95,33 @@ set smartcase
 "autocmd vimenter * hi NonText guibg=NONE ctermbg=NONE
 :highlight NonText ctermbg=none
 
-
-function! RgDir(isFullScreen, args)
-    let l:restArgs = [a:args]
-
-    let l:restArgs = split(l:restArgs[0], '-pattern=', 1)
-    let l:pattern = join(l:restArgs[1:], '')
-
-    let l:restArgs = split(l:restArgs[0], '-path=', 1)
-    " Since 8.0.1630 vim has a built-in trim() function
-    let l:path = trim(l:restArgs[1])
-
-    call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case " .. shellescape(l:pattern), 1, {'dir': l:path}, a:isFullScreen)
+function! RgDir(...)
+    if a:0 > 0
+        let l:path = a:1 
+    else
+        let l:path = $ws
+    endif
+    let l:pattern = ''
+    call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(l:pattern), 1, fzf#vim#with_preview({'dir':l:path}), 0)
 endfunction
 
-" the path param should not have `-pattern=`
-command! -bang -nargs=+ -complete=dir RgD call RgDir(<bang>0, <q-args>)
-command! -bang -nargs=+ RgD call RgDir(<bang>0, <q-args>)
-command! -nargs=* Xyz :call RgDir(<bang>0,'-path= '.<q-args>. ' -pattern=')
-nnoremap <leader>zd :RgD -path= . -pattern=
+command! -bang -nargs=* S call RgDir(<f-args>)
+
+" Didn't look good with Solarized
+" bg used to be Normal 
+" bg + used to be CursorLine CursorColumn
+let g:fzf_colors =
+            \ { 'fg':    ['fg', 'Normal'],
+            \ 'bg':      ['bg', 'CursorLine', 'CursorColumn'],
+            \ 'hl':      ['fg', 'Comment'],
+            \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+            \ 'bg+':     ['bg', 'Keyword'],
+            \ 'hl+':     ['fg', 'Statement'],
+            \ 'info':    ['fg', 'PreProc'],
+            \ 'border':  ['fg', 'Ignore'],
+            \ 'prompt':  ['fg', 'Conditional'],
+            \ 'pointer': ['fg', 'Exception'],
+            \ 'marker':  ['fg', 'Keyword'],
+            \ 'spinner': ['fg', 'Label'],
+            \ 'header':  ['fg', 'Comment'] }
 
