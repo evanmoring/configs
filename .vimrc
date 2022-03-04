@@ -26,6 +26,11 @@ function! UpdateGitBranch()
   let g:gitparsedbranchname = strlen(l:string) > 0?'['.l:string.']':''
 endfunction
 
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+
 set laststatus=2
 set statusline=%F\ 
 set statusline+="\uE0B2"
