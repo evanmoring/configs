@@ -43,7 +43,7 @@ let g:pydiction_location = '/home/evan/.vim/Pydiction/complete-dict'
 let g:solarized_termcolors=255
 set background=dark
 
-colorscheme solarized 
+colorscheme evan 
 
 command F FZF
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
@@ -53,7 +53,7 @@ autocmd BufWritePost .vimrc source %
 
 nnoremap <C-c> :w <Enter>:! clear ;g++ -o  %:r.out % -std=c++11; ./%:r.out<Enter>
 
-nnoremap <C-c> :w <Enter>:! clear ;python3  test.py<Enter>
+nnoremap <C-c> :w <Enter>:! clear ;python3  %:p<Enter>
 
 let mapleader = ","
 vnoremap <leader>c :norm I
