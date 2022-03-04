@@ -1,4 +1,3 @@
-set term=xterm-256color
 set shiftwidth=4
 set tabstop=4
 set expandtab
@@ -6,6 +5,35 @@ set number
 set ttymouse=xterm2
 set mouse=n
 set autoindent
+set ignorecase          
+set smartcase           
+set showmatch           
+set showmode            
+
+augroup UPDATE_GITBRANCH
+  " clear old commands
+  autocmd!
+
+  " update git branch
+  autocmd BufWritePre * :call UpdateGitBranch()
+  autocmd BufReadPost * :call UpdateGitBranch()
+  autocmd BufEnter * :call UpdateGitBranch()
+augroup END
+let g:gitparsedbranchname = ' '
+
+function! UpdateGitBranch()
+  let l:string = system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+  let g:gitparsedbranchname = strlen(l:string) > 0?'['.l:string.']':''
+endfunction
+
+set laststatus=2
+set statusline=%F\ 
+set statusline+="\uE0B2"
+set statusline+=%#LineNr#
+set statusline+=\ %{getcwd()}
+set statusline+=\ %{g:gitparsedbranchname}
+
+set notermguicolors
 
 augroup UPDATE_GITBRANCH
   " clear old commands
@@ -59,7 +87,7 @@ set background=dark
 colorscheme murphy 
 
 command F FZF
-
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
 set showcmd
 
 autocmd BufWritePost .vimrc source %
@@ -70,20 +98,24 @@ let mapleader = "/"
 " leader example
 "nnoremap <leader>c :echo 'cat'
 
+nnoremap <C-c> :w <Enter>:! clear ;python3  %:p<Enter>
+
+let mapleader = ","
+vnoremap <leader>c :norm I
+" leader example
+"nnoremap <leader>c :echo 'cat'
+
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-set shellcmdflag=-ic
+"set shellcmdflag=-ic
 
 set rtp+=~/.fzf
 
 set hlsearch
 "highlights search terms. :noh to clear
-
-set showmatch
-
 set ignorecase
 set smartcase
 "case insensitive searching
