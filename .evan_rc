@@ -1,5 +1,5 @@
 #! /bin/bash
-source /home/peanut/.config/broot/launcher/bash/br
+source /home/$USERNAME/.config/broot/launcher/bash/br
 
 source /usr/share/bash-completion/completions/git
 

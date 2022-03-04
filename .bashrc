@@ -3,8 +3,8 @@
 # for examples
 
 
-
-# case ${TERM} in
+export TERM=xterm-256color
+ #case ${TERM} in
 
 #     screen*)
 #         echo "test"
@@ -53,8 +53,6 @@ shopt -s checkwinsize
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
 #shopt -s globstar
-
-source ~/peanut_ws/devel/setup.bash
 
 # make less more friendly for non-text input files, see lesspipe(1)
 
@@ -160,10 +158,8 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-#source /opt/ros/noetic/setup.bash
-source ~/.bashrc_evan
+source /opt/ros/noetic/setup.bash
 [ ! -x ~/peanut_ws/setup.bash ] || WORKSPACE=~/peanut_ws source ~/peanut_ws/setup.bash
-export TERM=xterm
 
 export XAUTHORITY=$HOME/.Xauthority
 
