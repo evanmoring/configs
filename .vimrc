@@ -89,7 +89,7 @@ let g:pydiction_location = '/home/evan/.vim/Pydiction/complete-dict'
 let g:solarized_termcolors=255
 set background=dark
 
-colorscheme murphy 
+colorscheme evan 
 
 command F FZF
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
@@ -136,7 +136,9 @@ function! RgDir(...)
     if a:0 > 0
         let l:path = a:1 
     else
-        let l:path = $ws
+        "let l:path = $ws
+
+        let l:path ="."
     endif
     let l:pattern = ''
     call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(l:pattern), 1, fzf#vim#with_preview({'dir':l:path}), 0)
