@@ -94,6 +94,9 @@ endfunction
 
 command! -bang -nargs=* S call RgDir(<f-args>)
 
+"sets timeout in ms for escape characters. Example is O out of normal mode 
+set ttimeoutlen=10
+
 " Didn't look good with Solarized
 " bg used to be Normal 
 " bg + used to be CursorLine CursorColumn
