@@ -1,5 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =0
+let g:netrw_dirhistcnt =2
+let g:netrw_dirhist_2='/home/evan-peanut/.vim'
+let g:netrw_dirhist_1='/home/evan-peanut/peanut_ws/bin/operator_tools'
 let g:netrw_dirhist_0='/home/peanut/peanut_ws/wiki'
 let g:netrw_dirhist_9='/home/peanut/peanut_ws/bin/operator_tools'
 let g:netrw_dirhist_8='/home/peanut/peanut_ws/.git'
@@ -8,5 +10,3 @@ let g:netrw_dirhist_6='/home/evan/.vim/pack/fzf2'
 let g:netrw_dirhist_5='/home/evan/Test'
 let g:netrw_dirhist_4='/home/evan/Desktop'
 let g:netrw_dirhist_3='/home/evan'
-let g:netrw_dirhist_2='/home/evan/Desktop'
-let g:netrw_dirhist_1='/home/evan'
