@@ -4,9 +4,9 @@
 [submodule ".vim/pack/packages/start/fzf.vim"]
 	path = .vim/pack/packages/start/fzf.vim
 	url = https://github.com/junegunn/fzf.vim.git
-[submodule ".vim/pack/tpope/start/fugitive"]
-	path = .vim/pack/tpope/start/fugitive
-	url = https://github.com/tpope/vim-fugitive.git
 [submodule "/home/evan/.vim/pack/completor/start/completor.vim"]
 	path = /home/evan/.vim/pack/completor/start/completor.vim
 	url = https://github.com/maralla/completor.vim.git
+[submodule "/home/peanut/.vim/pack/tpope/start/fugitive"]
+	path = /home/peanut/.vim/pack/tpope/start/fugitive
+	url = https://github.com/tpope/vim-fugitive.git
