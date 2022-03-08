@@ -5,6 +5,7 @@
 
 export TERM=xterm-256color
 source ~/.extrarc
+source ~/.peanutrc
  #case ${TERM} in
 
 #     screen*)
