@@ -9,6 +9,37 @@ set ignorecase
 set smartcase           
 set showmatch           
 set showmode            
+syntax on
+
+augroup UPDATE_GITBRANCH
+  " clear old commands
+  autocmd!
+
+  " update git branch
+  autocmd BufWritePre * :call UpdateGitBranch()
+  autocmd BufReadPost * :call UpdateGitBranch()
+  autocmd BufEnter * :call UpdateGitBranch()
+augroup END
+let g:gitparsedbranchname = ' '
+
+function! UpdateGitBranch()
+  let l:string = system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+  let g:gitparsedbranchname = strlen(l:string) > 0?'['.l:string.']':''
+endfunction
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+
+set laststatus=2
+set statusline=%F\ 
+set statusline+="\uE0B2"
+set statusline+=%#LineNr#
+set statusline+=\ %{getcwd()}
+set statusline+=\ %{g:gitparsedbranchname}
+
+set notermguicolors
 
 augroup UPDATE_GITBRANCH
   " clear old commands
@@ -33,6 +64,22 @@ set statusline+=%#LineNr#
 set statusline+=\ %{getcwd()}
 set statusline+=\ %{g:gitparsedbranchname}
 
+"set statusline=
+"set statusline+=%#PmenuSel#
+"set statusline+=%{StatuslineGit()}
+"set statusline+=%#LineNr#
+"set statusline+=\ %f
+"set statusline+=%m\
+"set statusline+=%=
+"set statusline+=%#CursorColumn#
+"set statusline+=\ %y
+"set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+"set statusline+=\[%{&fileformat}\]
+"set statusline+=\ %p%%
+"set statusline+=\ %l:%c
+"set statusline+=\ 
+
+
 set notermguicolors
 
 "\e[H":beginning-of-line
@@ -51,7 +98,11 @@ set showcmd
 
 autocmd BufWritePost .vimrc source %
 
-nnoremap <C-c> :w <Enter>:! clear ;g++ -o  %:r.out % -std=c++11; ./%:r.out<Enter>
+"nnoremap <C-c> :w <Enter>:! clear ;g++ -o  %:r.out % -std=c++11; ./%:r.out<Enter>
+vnoremap <C-c> :norm I
+let mapleader = "/"
+" leader example
+"nnoremap <leader>c :echo 'cat'
 
 nnoremap <C-c> :w <Enter>:! clear ;python3  %:p<Enter>
 
@@ -86,16 +137,15 @@ function! RgDir(...)
     if a:0 > 0
         let l:path = a:1 
     else
-        let l:path = $ws
+        "let l:path = $ws
+
+        let l:path ="."
     endif
     let l:pattern = ''
     call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(l:pattern), 1, fzf#vim#with_preview({'dir':l:path}), 0)
 endfunction
 
 command! -bang -nargs=* S call RgDir(<f-args>)
-
-"sets timeout in ms for escape characters. Example is O out of normal mode 
-set ttimeoutlen=10
 
 " Didn't look good with Solarized
 " bg used to be Normal 
