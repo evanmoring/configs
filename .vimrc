@@ -50,19 +50,7 @@ augroup UPDATE_GITBRANCH
   autocmd BufReadPost * :call UpdateGitBranch()
   autocmd BufEnter * :call UpdateGitBranch()
 augroup END
-let g:gitparsedbranchname = ' '
 
-function! UpdateGitBranch()
-  let l:string = system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
-  let g:gitparsedbranchname = strlen(l:string) > 0?'['.l:string.']':''
-endfunction
-
-set laststatus=2
-set statusline=%F\ 
-set statusline+="\uE0B2"
-set statusline+=%#LineNr#
-set statusline+=\ %{getcwd()}
-set statusline+=\ %{g:gitparsedbranchname}
 
 "set statusline=
 "set statusline+=%#PmenuSel#
@@ -89,6 +77,7 @@ filetype plugin on
 let g:pydiction_location = '/home/evan/.vim/Pydiction/complete-dict' 
 let g:solarized_termcolors=255
 set background=dark
+let g:completor_python_binary = '/usr/bin/python3'
 
 colorscheme evan 
 
@@ -106,7 +95,7 @@ let mapleader = "/"
 
 nnoremap <C-c> :w <Enter>:! clear ;python3  %:p<Enter>
 
-let mapleader = ","
+"let mapleader = ","
 vnoremap <leader>c :norm I
 " leader example
 "nnoremap <leader>c :echo 'cat'
@@ -146,7 +135,8 @@ function! RgDir(...)
 endfunction
 
 command! -bang -nargs=* S call RgDir(<f-args>)
-
+map <C-f> :Rg<CR>
+map <C-p> :F<CR>
 " Didn't look good with Solarized
 " bg used to be Normal 
 " bg + used to be CursorLine CursorColumn
