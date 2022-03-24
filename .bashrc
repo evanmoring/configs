@@ -172,7 +172,6 @@ source ~/.evan_rc
 export PEANUT_CONFIG='robot2'
 [ ! -x ~/peanut_docker/setup.bash ] || WORKSPACE=~/peanut_docker source ~/peanut_docker/setup.bash
 
-source ~/peanut_ws/bin/operator_tools/operator_tools.sh
 
 export REMOTE_WS=~/sshfs/home/peanut/peanut_ws
 
