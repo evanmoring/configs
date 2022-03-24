@@ -31,6 +31,9 @@ command! -bang -nargs=* Rg
   \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview(), <bang>0)
 
+command!      -bang -nargs=* Lines                     
+  \ call fzf#vim#lines(<q-args>, <bang>0)'
+
 set laststatus=2
 set statusline=%F\ 
 set statusline+="\uE0B2"
@@ -134,8 +137,10 @@ function! RgDir(...)
 endfunction
 
 command! -bang -nargs=* S call RgDir(<f-args>)
+
 map <C-f> :Rg<CR>
 map <C-p> :F<CR>
+map <C-l> :BLines<CR>
 " Didn't look good with Solarized
 " bg used to be Normal 
 " bg + used to be CursorLine CursorColumn
