@@ -9,6 +9,9 @@ set ignorecase
 set smartcase           
 set showmatch           
 set showmode            
+syntax on
+" Without this ESC causes a one second hang
+set ttimeoutlen=100
 
 augroup UPDATE_GITBRANCH
   " clear old commands
