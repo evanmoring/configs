@@ -4,6 +4,8 @@
 
 
 export TERM=xterm-256color
+source ~/.extrarc
+source ~/.peanutrc
  #case ${TERM} in
 
 #     screen*)
@@ -172,7 +174,7 @@ source ~/.evan_rc
 export PEANUT_CONFIG='robot2'
 [ ! -x ~/peanut_docker/setup.bash ] || WORKSPACE=~/peanut_docker source ~/peanut_docker/setup.bash
 
-source ~/peanut_ws/bin/operator_tools/operator_tools.sh
+source ~/peanut_ws/operator_defaults/operator_tools.sh
 
 export REMOTE_WS=~/sshfs/home/peanut/peanut_ws
 

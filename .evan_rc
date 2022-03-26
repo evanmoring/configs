@@ -3,6 +3,8 @@ source /home/$USERNAME/.config/broot/launcher/bash/br
 
 source /usr/share/bash-completion/completions/git
 
+source ~/peanut_ws/operator_defaults/operator_tools.sh
+
 set -o vi
 
 alias set_upstream='git push --set-upstream origin'
@@ -21,7 +23,9 @@ export EDITOR=vim
 
 alias ff="firefox &"
 
-export ws="/home/evan/Projects/"
+
+
+#export ws="/home/evan/Projects/"
 
 se(){
 # search for $1 in $2, unless no $2 then search $ws
@@ -40,3 +44,7 @@ git_start(){
 }
 
 alias less="less -R"
+
+# Peanut crash reporter
+export JIRA_USERNAME='evan@peanutrobotics.com'
+export JIRA_API_KEY='qfKaBYZN3CfOUPJWShE0F415'

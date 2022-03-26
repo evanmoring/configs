@@ -1,0 +1,10 @@
+#! /bin/sh
+
+remote_connection(){
+ssh peanut@52.23.243.250 -p 38$1
+}
+
+
+aws_connection(){
+ssh ubuntu@52.23.243.250
+}
