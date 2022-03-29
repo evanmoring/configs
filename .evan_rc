@@ -4,19 +4,16 @@ source ~/.config/broot/launcher/bash/br
 alias dwarf='/opt/linux-dwarf-pack/linux-dwarf-pack.sh'
 
 set -o vi
+set bell-style none
 
 alias oops='sudo $(fc -ln -1)'
-
 alias hist='history | grep'
-
 alias dirs='dirs -v'
-
 alias pd='pushd'
+alias ff="firefox &"
+alias less="less -R"
 
 export EDITOR=vim
-
-alias ff="firefox &"
-
 export ws="/home/evan/Projects/"
 
 se(){
@@ -35,4 +32,3 @@ git_start(){
     git status --porcelain | cut -c 4- | while read line ; do echo $line; echo dog ; done
 }
 
-alias less="less -R"
