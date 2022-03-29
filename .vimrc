@@ -3,7 +3,7 @@ set tabstop=4
 set expandtab
 set number
 set ttymouse=xterm2
-set mouse=n
+set mouse=a
 set autoindent
 set ignorecase          
 set smartcase           
@@ -12,6 +12,8 @@ set showmode
 syntax on
 " Without this ESC causes a one second hang
 set ttimeoutlen=100
+" diff split next to each other
+set diffopt+=vertical
 
 augroup UPDATE_GITBRANCH
   " clear old commands
