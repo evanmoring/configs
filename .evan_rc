@@ -1,8 +1,6 @@
 #! /bin/bash
 source ~/.config/broot/launcher/bash/br
 
-alias dwarf='/opt/linux-dwarf-pack/linux-dwarf-pack.sh'
-
 set -o vi
 set bell-style none
 
@@ -12,6 +10,7 @@ alias dirs='dirs -v'
 alias pd='pushd'
 alias ff="firefox &"
 alias less="less -R"
+alias dwarf='/opt/linux-dwarf-pack/linux-dwarf-pack.sh'
 
 export EDITOR=vim
 export ws="/home/evan/Projects/"

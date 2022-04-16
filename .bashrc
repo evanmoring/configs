@@ -117,12 +117,9 @@ if ! shopt -oq posix; then
 fi
 
 [ -f ~/.bash_git ] && source ~/.bash_git
-                                                  
-
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 bind 'set show-all-if-ambiguous on'
 bind 'set completion-ignore-case on'
 
-source ~/.evan_rc
-
+[ -f ~/.evan_rc ] && source ~/.evan_rc 

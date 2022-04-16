@@ -32,7 +32,6 @@ set background=dark
 let g:completor_python_binary = '/usr/bin/python3'
 syntax on
 filetype plugin on
-"let g:pydiction_location = '/home/evan/.vim/Pydiction/complete-dict' 
 colorscheme evan 
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
 set showcmd
