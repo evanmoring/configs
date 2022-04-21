@@ -126,3 +126,5 @@ bind 'set completion-ignore-case on'
 
 source ~/.evan_rc
 
+
+source /home/peanut/.config/broot/launcher/bash/br
