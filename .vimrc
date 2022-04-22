@@ -20,8 +20,8 @@ set statusline+=%#LineNr#
 set statusline+=\ %{getcwd()}
 set statusline+=\ %{FugitiveStatusline()}
 set notermguicolors
-set hlsearch
-"highlights search terms. :noh to clear
+set is hlsearch
+"is for incremental search. highlights search terms. :noh to clear
 set ignorecase
 set smartcase
 "case insensitive searching
