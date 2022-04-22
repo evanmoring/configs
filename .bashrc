@@ -123,3 +123,6 @@ bind 'set show-all-if-ambiguous on'
 bind 'set completion-ignore-case on'
 
 [ -f ~/.evan_rc ] && source ~/.evan_rc 
+source ~/.evan_rc
+
+source /home/$USER/.config/broot/launcher/bash/br
