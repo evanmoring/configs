@@ -85,6 +85,17 @@ let g:pydiction_location = '/home/evan/.vim/Pydiction/complete-dict'
 let g:solarized_termcolors=255
 set background=dark
 let g:completor_python_binary = '/usr/bin/python3'
+syntax on
+filetype plugin on
+colorscheme evan 
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
+set showcmd
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+let g:completor_clang_binary = '/usr/bin/clang'
 
 colorscheme evan 
 
@@ -96,16 +107,19 @@ autocmd BufWritePost .vimrc source %
 
 "nnoremap <C-c> :w <Enter>:! clear ;g++ -o  %:r.out % -std=c++11; ./%:r.out<Enter>
 vnoremap <C-c> :norm I
-let mapleader = "/"
+"let mapleader = "/"
 " leader example
 "nnoremap <leader>c :echo 'cat'
 
-nnoremap <C-c> :w <Enter>:! clear ;python3  %:p<Enter>
+" nnoremap <C-c> :w <Enter>:! clear ;python3  %:p<Enter>
+nnoremap <C-c> :w <Enter>:bo term ++rows=10 ++close bash -c "g++ -o  %:r.out % -std=c++11 && %:r.out; echo ''; bash "<Enter>
 
-"let mapleader = ","
+let mapleader = ","
+"nnoremap <C-c> :w <Enter>:! clear ;g++ -o  %:r.out % -std=c++11; ./%:r.out<Enter>
 vnoremap <leader>c :norm I
-" leader example
-"nnoremap <leader>c :echo 'cat'
+
+" use w!! to write with sudo
+cmap w!! w !sudo tee % >/dev/null
 
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
