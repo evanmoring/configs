@@ -30,6 +30,7 @@ set rtp+=~/.fzf
 let g:solarized_termcolors=255
 set background=dark
 let g:completor_python_binary = '/usr/bin/python3'
+let g:completor_clang_binary = '/usr/bin/clang'
 syntax on
 filetype plugin on
 colorscheme evan 
@@ -48,9 +49,14 @@ command F FZF
 
 autocmd BufWritePost .vimrc source %
 
-nnoremap <C-c> :w <Enter>:! clear ;python3  %:p<Enter>
+"nnoremap <C-c> :w <Enter>:! clear ;g++ -o  %:r.out % -std=c++11; ./%:r.out<Enter>
+nnoremap <C-c> :w <Enter>:bo term ++rows=10 ++close bash -c "g++ -o  %:r.out % -std=c++11 && %:r.out; echo ''; bash "<Enter>
+"nnoremap <C-c> :w <Enter>:! clear ;python3  %:p<Enter>
 let mapleader = ","
 vnoremap <leader>c :norm I
+
+" use w!! to write with sudo
+cmap w!! w !sudo tee % >/dev/null
 " leader example
 "nnoremap <leader>c :echo 'cat'
 "
