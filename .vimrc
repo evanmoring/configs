@@ -82,6 +82,13 @@ set notermguicolors
 
 filetype plugin on
 let g:pydiction_location = '/home/evan/.vim/Pydiction/complete-dict' 
+set is hlsearch
+"is for incremental search. highlights search terms. :noh to clear
+set ignorecase
+set smartcase
+"case insensitive searching
+"Adding \c or \C to a search will force sensitive or insensitive searching
+set rtp+=~/.fzf
 let g:solarized_termcolors=255
 set background=dark
 let g:completor_python_binary = '/usr/bin/python3'
