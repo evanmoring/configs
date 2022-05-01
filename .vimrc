@@ -99,3 +99,33 @@ let g:fzf_colors =
             \ 'marker':  ['fg', 'Keyword'],
             \ 'spinner': ['fg', 'Label'],
             \ 'header':  ['fg', 'Comment'] }
+
+function! s:open(cmd, target)
+  if stridx('edit', a:cmd) == 0 && fnamemodify(a:target, ':p') ==# expand('%:p')
+    return
+  endif
+  execute a:cmd fnameescape(a:target)
+endfunction
+
+function! s:fzf_rg_to_qf(line)
+  let parts = split(a:line, '[^:]\zs:\ze[^:]')
+  let text = join(parts[3:], ':')
+  let dict = {'filename': &acd ? fnamemodify(parts[0], ':p') : parts[0], 'lnum': parts[1], 'text': text}
+  let dict.col = parts[2]
+  return dict
+endfunction
+
+function! s:fzf_rg_handler(lines)
+  let list = map(filter(a:lines, 'len(v:val)'), 's:fzf_rg_to_qf(v:val)')
+  if empty(list)
+    return
+  endif
+  let first = list[0]
+  call s:open('e', first.filename)
+  execute first.lnum
+  execute 'normal!' first.col.'|'
+  normal! zz
+endfunction
+
+" Adds Rg command to search on file content, with a nice preview window to the right.
+command! -bang -nargs=* Rg call  fzf#run(fzf#wrap(fzf#vim#with_preview({'source': 'rg --column --line-number --no-heading --color=never --smart-case '.shellescape(<q-args>), 'options': '--exact --delimiter : --nth 4..', 'sink*': function('s:fzf_rg_handler') }, 'right:50%')))
