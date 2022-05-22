@@ -5,10 +5,14 @@ set number
 set ttymouse=xterm2
 set mouse=a
 set autoindent
+set ignorecase
+set smartcase
 set showmatch           
 set showmode            
+syntax on
 " turn off bell sound
 set visualbell
+set hlsearch
 " Without this ESC causes a one second hang
 set ttimeoutlen=100
 " diff split next to each other
@@ -44,6 +48,8 @@ command! -bang -nargs=* Rg
   \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview(), <bang>0)
 
+
+
 command! -bang -nargs=* Lines                     
   \ call fzf#vim#lines(<q-args>, <bang>0)'
 
@@ -53,10 +59,10 @@ autocmd BufWritePost .vimrc source %
 
 "nnoremap <C-c> :w <Enter>:! clear ;g++ -o  %:r.out % -std=c++11; ./%:r.out<Enter>
 nnoremap <C-c> :w <Enter>:bo term ++rows=10 ++close bash -c "g++ -o  %:r.out % -std=c++11 && %:r.out; echo ''; bash "<Enter>
-"nnoremap <C-c> :w <Enter>:! clear ;python3  %:p<Enter>
+"remap <C-c> :w <Enter>:! clear ;python3  %:p<Enter>
 let mapleader = ","
 vnoremap <leader>c :norm I
-nnoremap <C-w> :w <Enter>:! clear ;python3  %:p<Enter>
+"nnoremap <C-w> :w <Enter>:! clear ;python3  %:p<Enter>
 
 " use w!! to write with sudo
 cmap w!! w !sudo tee % >/dev/null
