@@ -57,3 +57,6 @@ v(){
 vim $(fzf --preview 'bat --style=numbers --color=always --line-range :500 {}')
 }
 
+v(){
+vim $(fzf --preview 'bat --style=numbers --color=always --line-range :500 {}')
+}
