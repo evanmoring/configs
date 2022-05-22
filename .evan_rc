@@ -31,3 +31,6 @@ git_start(){
     git status --porcelain | cut -c 4- | while read line ; do echo $line; echo dog ; done
 }
 
+v(){
+vim $(fzf --preview 'bat --style=numbers --color=always --line-range :500 {}')
+}
