@@ -98,6 +98,8 @@ colorscheme evan
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
 set showcmd
 
+command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
+
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
@@ -124,6 +126,7 @@ nnoremap <C-c> :w <Enter>:bo term ++rows=10 ++close bash -c "g++ -o  %:r.out % -
 let mapleader = ","
 "nnoremap <C-c> :w <Enter>:! clear ;g++ -o  %:r.out % -std=c++11; ./%:r.out<Enter>
 vnoremap <leader>c :norm I
+nnoremap <C-w> :w <Enter>:! clear ;python3  %:p<Enter>
 
 " use w!! to write with sudo
 cmap w!! w !sudo tee % >/dev/null
