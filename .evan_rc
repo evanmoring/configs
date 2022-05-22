@@ -48,3 +48,7 @@ alias less="less -R"
 # Peanut crash reporter
 export JIRA_USERNAME='evan@peanutrobotics.com'
 export JIRA_API_KEY='qfKaBYZN3CfOUPJWShE0F415'
+
+v(){
+vim $(fzf --preview 'bat --style=numbers --color=always --line-range :500 {}')
+}
