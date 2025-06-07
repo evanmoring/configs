@@ -138,7 +138,7 @@ export ws="/home/evan/Projects/"
 
 setxkbmap -option caps:escape # set caps to escape
 setxkbmap -option # clear keyboard changes
-setxkbmap -option caps:swapescape # swap escape and capslock
+#setxkbmap -option caps:swapescape # swap escape and capslock
 
 se(){
 # search for $1 in $2, unless no $2 then search $ws
